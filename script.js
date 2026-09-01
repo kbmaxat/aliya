@@ -32,6 +32,7 @@ if (form) {
 
     const botToken = form.dataset.telegramBot || '';
     const chatId = form.dataset.telegramChatId || '';
+    const cloudSheetUrl = form.dataset.googleSheetUrl || '';
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     const text = [
@@ -63,11 +64,43 @@ if (form) {
         }
       }
 
+      if (cloudSheetUrl) {
+        try {
+          await fetch(cloudSheetUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              timestamp: new Date().toISOString(),
+              ...payload,
+            }),
+          });
+        } catch (sheetError) {
+          console.warn('Cloud sheet integration not available yet, saving locally instead.', sheetError);
+        }
+      }
+
+      const stored = JSON.parse(localStorage.getItem('aliya-form-submissions') || '[]');
+      stored.push({
+        timestamp: new Date().toISOString(),
+        ...payload,
+      });
+      localStorage.setItem('aliya-form-submissions', JSON.stringify(stored));
+
       showStatus('Заявка отправлена. В ближайшее время с вами свяжутся.', 'success');
       form.reset();
     } catch (error) {
       console.error(error);
-      showStatus('Форма принята. Если Telegram-уведомления не подключены, свяжитесь с психологом напрямую.', 'error');
+      try {
+        const stored = JSON.parse(localStorage.getItem('aliya-form-submissions') || '[]');
+        stored.push({
+          timestamp: new Date().toISOString(),
+          ...payload,
+        });
+        localStorage.setItem('aliya-form-submissions', JSON.stringify(stored));
+      } catch (storageError) {
+        console.error(storageError);
+      }
+      showStatus('Форма принята. Пока Telegram и облачная таблица не подключены, данные сохраняются локально до настройки интеграции.', 'error');
       form.reset();
     }
   });

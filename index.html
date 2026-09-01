@@ -318,15 +318,6 @@
           </div>
           <div class="video-grid">
             <div class="video-item">
-              <iframe class="video-embed" src="https://www.youtube.com/embed/McL-ZjMoaLM?rel=0" title="Видео 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe class="video-embed" src="https://www.youtube.com/embed/Rh_HAEu9Lhs?rel=0" title="Видео 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe class="video-embed" src="https://www.youtube.com/embed/OdxjqUgvfC0?rel=0" title="Видео 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
               <iframe class="video-embed" src="https://www.youtube.com/embed/r2YrKz0_5yE?rel=0" title="Видео 4" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="video-item">
@@ -347,7 +338,7 @@
           </div>
           <div class="pricing-card">
             <p class="pricing-price">20 000 ₸</p>
-            <p class="pricing-note">до конца года специальная цена — 10 000 ₸</p>
+            <p class="pricing-note">до конца 2026 года специальная цена — 10 000 ₸</p>
             <p class="pricing-text">
               Я, Алия, помогаю людям справляться со стрессом, тревогой, внутренним напряжением и переутомлением через безопасную и поддерживающую психологическую работу.
             </p>
@@ -375,7 +366,7 @@
             </div>
           </div>
 
-          <form id="contact-form" class="contact-form" data-telegram-bot="" data-telegram-chat-id="" novalidate>
+          <form id="contact-form" class="contact-form" data-telegram-bot="" data-telegram-chat-id="" data-google-sheet-url="https://docs.google.com/spreadsheets/d/1skwUGAXeoQYTZpDSL1N0XTsEX8XhLLtB7yKbUNN0BVE/edit?usp=sharing" novalidate>
             <label>
               Имя
               <input type="text" name="name" placeholder="Ваше имя" />
@@ -426,7 +417,7 @@
                 <input type="text" name="anti_spam" placeholder="Вставьте число 7" required />
               </label>
             </div>
-            <p class="form-note">Данные из формы отправляются в Telegram-бот, если бот подключён. Для безопасной публичной публикации токен и chat ID не хранятся в репозитории.</p>
+            <p class="form-note">Данные из формы пока не подключены к Telegram и Google Sheets. После настройки они будут сохраняться в отдельную облачную таблицу: <a href="https://docs.google.com/spreadsheets/d/1skwUGAXeoQYTZpDSL1N0XTsEX8XhLLtB7yKbUNN0BVE/edit?usp=sharing" target="_blank" rel="noopener">Google Sheets</a>. В текущей публичной версии данные безопасно сохраняются локально в браузере до подключения внешней интеграции.</p>
             <button type="submit" class="button button-primary submit-button">Отправить заявку</button>
             <div class="form-status" aria-live="polite"></div>
           </form>

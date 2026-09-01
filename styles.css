@@ -748,6 +748,12 @@ p {
   }
 }
 
+@media (max-width: 760px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
   .form-status {
     min-height: 24px;
     color: var(--charcoal);

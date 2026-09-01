@@ -7,8 +7,11 @@ from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, PageBreak
 
 root = Path(__file__).resolve().parents[1]
-img_path = root / 'photo_2_2026-09-01_22-05-57.jpg'
-out_path = root / 'assets' / 'commercial-offer.pdf'
+img_path = root / 'assets' / 'images' / 'photo_2_2026-09-01_22-05-57.jpg'
+cv_page_1 = root / 'assets' / 'images' / 'photo_1_2026-09-01_22-11-09.jpg'
+cv_page_2 = root / 'assets' / 'images' / 'photo_2_2026-09-01_22-11-09.jpg'
+out_path = root / 'assets' / 'documents' / 'commercial-offer.pdf'
+cv_out_path = root / 'assets' / 'documents' / 'aliya-cv.pdf'
 qr_path = root / 'assets' / 'qr-code.png'
 out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -21,10 +24,25 @@ body = ParagraphStyle('body', parent=styles['BodyText'], fontName='Helvetica', f
 
 def ensure_qr():
     qr = qrcode.QRCode(version=2, box_size=4, border=2)
-    qr.add_data('https://example.com/aliya-zhakupova')
+    qr.add_data('https://kbmaxat.github.io/aliya/')
     qr.make(fit=True)
     image = qr.make_image(fill_color='black', back_color='white')
     image.save(qr_path)
+
+
+def build_cv_pdf():
+    doc = SimpleDocTemplate(str(cv_out_path), pagesize=A4, leftMargin=18*mm, rightMargin=18*mm, topMargin=18*mm, bottomMargin=18*mm)
+    story = []
+    story.append(Paragraph('Алия Жакупова', heading))
+    story.append(Paragraph('Психолог • арт-терапевт', sub))
+    story.append(Paragraph('CV', body))
+    story.append(Spacer(1, 6*mm))
+    if cv_page_1.exists():
+        story.append(Image(str(cv_page_1), width=160*mm, height=95*mm, kind='proportional'))
+    story.append(PageBreak())
+    if cv_page_2.exists():
+        story.append(Image(str(cv_page_2), width=160*mm, height=95*mm, kind='proportional'))
+    doc.build(story)
 
 
 def build_pdf():
@@ -33,55 +51,56 @@ def build_pdf():
 
     story.append(Paragraph('Алия Жакупова', heading))
     story.append(Paragraph('Психолог • Арт-терапевт', sub))
-    story.append(Paragraph('Арт-терапия для команд, школ и организаций', heading))
-    story.append(Spacer(1, 10*mm))
-    story.append(Paragraph('1,5–2 часа • безопасная индивидуальная атмосфера • творческая практика • рефлексия', body))
-    story.append(Spacer(1, 10*mm))
+    story.append(Spacer(1, 4*mm))
+    story.append(Paragraph('Коммерческое предложение для школ, команд и организаций', heading))
+    story.append(Spacer(1, 6*mm))
+    story.append(Paragraph('Мягкая психологическая поддержка, арт-терапия и безопасная работа с эмоциональным состоянием участников.', body))
+    story.append(Spacer(1, 8*mm))
     if img_path.exists():
         story.append(Image(str(img_path), width=120*mm, height=75*mm, kind='proportional'))
     story.append(PageBreak())
 
     story.append(Paragraph('О специалисте', heading))
-    story.append(Paragraph('Алия Жакупова — психолог и арт-терапевт с образованием в области педагогики и психологии. Работа строится на сочетании психотерапевтической поддержки, безопасной коммуникации и творческих практик, которые помогают человеку лучше понимать свои ощущения, снижать внутреннее напряжение и укреплять ресурсную устойчивость.', body))
+    story.append(Paragraph('Алия Жакупова — психолог и арт-терапевт, специалист по работе с эмоциональным напряжением, тревогой, выгоранием, внутренней перегрузкой и восстановлением чувства устойчивости. В работе сочетаются психологическая поддержка, безопасная коммуникация и творческие практики, которые помогают человеку легче встретиться со своими ощущениями и ресурсами.', body))
     story.append(Spacer(1, 6*mm))
-    story.append(Paragraph('Образование: бакалавр педагогики и психологии<br/>Дополнительное обучение: профилактика буллинга и суицидальных рисков, арт-терапевтическая практика', body))
+    story.append(Paragraph('Образование: бакалавр педагогики и психологии<br/>Дополнительное обучение: курс по профилактике буллинга и суицидальных рисков в образовательной среде<br/>Направления: индивидуальная работа, арт-терапия, групповая поддержка, командные форматы, сопровождение школ и организаций.', body))
     story.append(PageBreak())
 
     program = [
         ['Этап', 'Длительность', 'Описание'],
-        ['Знакомство и комфорт', '10 мин', 'Создание безопасной атмосферы и формулировка запроса.'],
-        ['Введение в тему', '10 мин', 'Определение задачи, целей и ожиданий участников.'],
-        ['Арт-терапевтическая практика', '50–60 мин', 'Основная творческая работа через образ, материалы и символы.'],
-        ['Рефлексия', '20–25 мин', 'Осмысление переживаний, обсуждение ощущений и ресурсов.'],
-        ['Завершение', '10–15 мин', 'Подведение итогов и закрепление впечатлений.'],
+        ['Знакомство и ощущение безопасности', '10–15 мин', 'Определение запроса, целей и внутреннего контекста участников.'],
+        ['Погружение в тему', '10 мин', 'Создание атмосферы доверия и выстраивание смысла встречи.'],
+        ['Арт-терапевтическая практика', '50–60 мин', 'Основная творческая работа через образ, материалы, символы и рефлексию.'],
+        ['Осмысление и обсуждение', '20–25 мин', 'Формулировка чувств, наблюдений и новых ресурсов.'],
+        ['Завершение и закрепление', '10–15 мин', 'Подведение итогов и обсуждение следующих шагов.'],
     ]
-    table = Table(program, colWidths=[38*mm, 28*mm, 90*mm])
+    table = Table(program, colWidths=[42*mm, 30*mm, 94*mm])
     table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#f0d4b3')),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#d9b69f')),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('GRID', (0, 0), (-1, -1), 0.8, colors.HexColor('#d5c7b9')),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('_PADDING', (0, 0), (-1, -1), 6),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('PADDING', (0, 0), (-1, -1), 6),
     ]))
-    story.append(Paragraph('Что представляет собой программа', heading))
+    story.append(Paragraph('Формат работы', heading))
     story.append(table)
     story.append(PageBreak())
 
-    story.append(Paragraph('Для кого', heading))
-    story.append(Paragraph('• компании<br/>• HR-команды<br/>• образовательные учреждения<br/>• школы<br/>• университеты<br/>• государственные организации<br/>• НПО<br/>• профессиональные сообщества', body))
+    story.append(Paragraph('Для кого подходит', heading))
+    story.append(Paragraph('• школы и образовательные учреждения<br/>• команды и HR-подразделения<br/>• бизнес-среда и корпоративные группы<br/>• профессиональные сообщества<br/>• организации, где важно снизить напряжение и повысить качество общения', body))
     story.append(Spacer(1, 6*mm))
-    story.append(Paragraph('Возможные цели', heading))
-    story.append(Paragraph('• эмоциональная разгрузка<br/>• профилактика выгорания<br/>• командное взаимодействие<br/>• развитие коммуникации<br/>• снижение напряжения<br/>• творческое переключение<br/>• повышение вовлечённости команды', body))
+    story.append(Paragraph('Цели программы', heading))
+    story.append(Paragraph('• снижение эмоционального напряжения<br/>• профилактика выгорания<br/>• укрепление доверия и совместной коммуникации<br/>• восстановление внутреннего ресурса<br/>• развитие безопасного пространства для самовыражения', body))
     story.append(PageBreak())
 
     package_rows = [
-        ['Пакет', 'Участники', 'Стоимость', 'Что входит'],
-        ['START', 'до 10', '90 000 ₸', '1,5 часа, арт-терапевтическая практика, групповая рефлексия, материалы.'],
-        ['TEAM', 'до 20', '160 000 ₸', 'до 2 часов, персонализированная программа, материалы, рекомендации после мероприятия.'],
-        ['CORPORATE', 'до 30', '225 000 ₸', 'до 2 часов, адаптация под запрос команды, несколько арт-практик, материалы, рекомендации.'],
+        ['Пакет', 'Формат', 'Стоимость', 'Что входит'],
+        ['Старт', 'Индивидуальная сессия', '20 000 ₸', '1 встреча, работа с запросом, поддержка, закрепление ресурса.'],
+        ['Акция', 'Индивидуальная сессия до конца года', '10 000 ₸', 'специальная цена при записи до конца года.'],
+        ['Группа / мероприятие', 'От 1,5 до 2 часов', 'от 90 000 ₸', 'арт-терапия для команды, школы или группы участников.'],
     ]
-    package_table = Table(package_rows, colWidths=[22*mm, 22*mm, 26*mm, 88*mm])
+    package_table = Table(package_rows, colWidths=[22*mm, 35*mm, 30*mm, 83*mm])
     package_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#d8b0a3')),
         ('GRID', (0, 0), (-1, -1), 0.8, colors.HexColor('#d5c7b9')),
@@ -90,25 +109,28 @@ def build_pdf():
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f8f4f0')]),
         ('PADDING', (0, 0), (-1, -1), 6),
     ]))
-    story.append(Paragraph('Пакеты', heading))
+    story.append(Paragraph('Стоимость и условия', heading))
     story.append(package_table)
-    story.append(Spacer(1, 6*mm))
-    story.append(Paragraph('Итоговая стоимость зависит от количества участников, формата, материалов и индивидуального запроса организации.', sub))
+    story.append(Spacer(1, 10*mm))
+    story.append(Paragraph('Итоговая стоимость зависит от количества участников, формата встречи, материалов и целей организации.', sub))
     story.append(PageBreak())
 
     story.append(Paragraph('Как заказать', heading))
-    story.append(Paragraph('1. Организация отправляет заявку.<br/>2. Специалист уточняет задачу.<br/>3. Определяются формат, дата и количество участников.<br/>4. Согласовывается программа.<br/>5. Проводится мероприятие.', body))
-    story.append(Spacer(1, 10*mm))
-    story.append(Paragraph('Контакты: через форму записи на сайте / по актуальным контактам специалиста', sub))
-    ensure_qr()
+    story.append(Paragraph('1. Вы оставляете заявку на сайте.<br/>2. Уточняется формат, цель и сроки.<br/>3. Подбирается подходящий формат работы.<br/>4. Проходит встреча или мероприятие.<br/>5. После работы выдаются ключевые выводы и рекомендации.', body))
     story.append(Spacer(1, 8*mm))
+    ensure_qr()
     story.append(Image(str(qr_path), width=28*mm, height=28*mm, kind='proportional'))
     story.append(Spacer(1, 8*mm))
-    story.append(Paragraph('Сайт: https://example.com/aliya-zhakupova', small))
+    story.append(Paragraph('Сайт: https://kbmaxat.github.io/aliya/', small))
+    story.append(Paragraph('Email: zhakupovaal12@gmail.com', small))
+    story.append(Paragraph('WhatsApp: +7 776 155 03 28', small))
+    story.append(Paragraph('Instagram: https://www.instagram.com/_aliyaserikbaevna/', small))
 
     doc.build(story)
 
 
 if __name__ == '__main__':
+    build_cv_pdf()
     build_pdf()
+    print(f'CV generated: {cv_out_path}')
     print(f'PDF generated: {out_path}')

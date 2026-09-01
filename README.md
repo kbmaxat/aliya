@@ -13,4 +13,9 @@
 Если хотите такой же сайт — пишите: maksat.kab@gmail.com
 Цена обсуждается индивидуально.
 
+Контакты специалиста:
+- Email: zhakupovaal12@gmail.com
+- WhatsApp: https://wa.me/87761550328
+- Instagram: https://www.instagram.com/_aliyaserikbaevna/
+
 Production URL: https://kbmaxat.github.io/aliya/

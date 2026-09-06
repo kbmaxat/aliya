@@ -83,12 +83,12 @@
   if (yearNode) yearNode.textContent = String(new Date().getFullYear());
 
   /* ---------- Форма заявки ----------
-     Готового бэкенда у статического сайта нет, поэтому заявка:
-     1) резервно сохраняется в localStorage браузера посетителя;
-     2) открывает WhatsApp (+7 776 155 03 28) с уже собранным текстом —
-        так сообщение реально доходит до Алии.
-     Для сбора заявок в почту / Google-таблицу / Telegram нужен
-     небольшой сервис (Formspree, Google Apps Script и т.п.). */
+     LEAD_ENDPOINT — адрес обработчика на сервере Алии, который пересылает
+     заявку боту в Telegram (см. /server/aliya-lead.php). Пока строка пустая —
+     заявка уходит через WhatsApp с готовым текстом. Когда endpoint задан,
+     заявка отправляется на сервер, а WhatsApp остаётся запасным вариантом.
+     ВАЖНО: адрес должен быть https:// — иначе браузер заблокирует запрос. */
+  const LEAD_ENDPOINT = '';
   const WHATSAPP_NUMBER = '87761550328';
   const form = document.querySelector('#contact-form');
   if (!form) return;
@@ -126,7 +126,26 @@
       .filter(Boolean)
       .join('\n');
 
-  form.addEventListener('submit', (event) => {
+  const openWhatsApp = (payload) => {
+    const waUrl =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(buildMessage(payload));
+    const win = window.open(waUrl, '_blank', 'noopener');
+    if (win) {
+      showStatus('Открываем WhatsApp с вашей заявкой — отправьте сообщение, чтобы завершить.', 'success');
+    } else {
+      showStatus('Не удалось открыть WhatsApp. Напишите напрямую: 8 (776) 155-03-28.', 'error');
+    }
+  };
+
+  const sendToServer = (payload) =>
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ ...payload, text: buildMessage(payload), page: location.href }),
+    });
+
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const antiSpam = form.querySelector('input[name="anti_spam"]');
@@ -145,18 +164,28 @@
       return;
     }
 
+    const submitBtn = form.querySelector('.submit-button');
     const payload = Object.fromEntries(new FormData(form).entries());
     saveLocally(payload);
 
-    const waUrl =
-      `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(buildMessage(payload));
-    const win = window.open(waUrl, '_blank', 'noopener');
-
-    if (win) {
-      showStatus('Открываем WhatsApp с вашей заявкой — отправьте сообщение, чтобы завершить.', 'success');
-    } else {
-      showStatus('Не удалось открыть WhatsApp. Напишите напрямую: 8 (776) 155-03-28.', 'error');
+    if (LEAD_ENDPOINT) {
+      if (submitBtn) submitBtn.disabled = true;
+      showStatus('Отправляем заявку…', '');
+      try {
+        await sendToServer(payload);
+        showStatus('Заявка отправлена. Я свяжусь с вами в ближайшее время.', 'success');
+        form.reset();
+      } catch (error) {
+        console.warn('Не удалось отправить на сервер, открываем WhatsApp:', error);
+        openWhatsApp(payload);
+        form.reset();
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+      return;
     }
+
+    openWhatsApp(payload);
     form.reset();
   });
 })();

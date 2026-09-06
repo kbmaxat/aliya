@@ -572,6 +572,18 @@ p {
   object-fit: cover;
 }
 
+.about-intro h2 {
+  margin-bottom: 4px;
+}
+
+.about-photo {
+  margin-top: 26px;
+}
+
+.about-photo img {
+  height: clamp(300px, 40vw, 440px);
+}
+
 /* ---------- Documents ---------- */
 .doc-group-title {
   font-size: clamp(1.15rem, 2vw, 1.4rem);

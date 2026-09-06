@@ -113,6 +113,7 @@ p {
 
 .section {
   padding: clamp(64px, 9vw, 120px) 0;
+  overflow-x: clip; /* сдерживает боковые сдвиги анимаций появления */
 }
 
 .skip-link {
@@ -581,6 +582,12 @@ p {
   width: 100%;
   height: clamp(340px, 46vw, 540px);
   object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.media-frame:hover img,
+.about-photo:hover img {
+  transform: scale(1.03);
 }
 
 .about-photo {
@@ -597,6 +604,7 @@ p {
   height: clamp(380px, 52vw, 560px);
   object-fit: cover;
   object-position: 50% 12%;
+  transition: transform 0.6s var(--ease-out);
 }
 
 .about-photo figcaption {
@@ -1157,15 +1165,66 @@ p {
 }
 
 /* ---------- Reveal on scroll ---------- */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(32px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out),
+    filter 0.8s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal--left {
+  transform: translateX(-44px);
+}
+
+.reveal--right {
+  transform: translateX(44px);
+}
+
+.reveal--scale {
+  transform: translateY(28px) scale(0.94);
+}
+
+.reveal--blur {
+  filter: blur(6px);
+}
+
+/* карточки в сетках появляются с лёгким масштабом */
+.service-card.reveal,
+.doc-card.reveal,
+.focus-item.reveal,
+.process-step.reveal {
+  transform: translateY(30px) scale(0.96);
 }
 
 .reveal.in {
   opacity: 1;
   transform: none;
+  filter: none;
+}
+
+/* заголовки секций «проявляются» маской снизу вверх */
+.section-heading.reveal h2 {
+  clip-path: inset(0 0 110% 0);
+  transform: translateY(14px);
+  transition: clip-path 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+  transition-delay: 90ms;
+}
+
+.section-heading.reveal.in h2 {
+  clip-path: inset(0 0 -10% 0);
+  transform: none;
+}
+
+/* мягкий параллакс фоновых фигур в hero */
+.hero-shape {
+  will-change: transform;
+  transition: transform 0.1s linear;
 }
 
 /* ---------- Focus visibility ---------- */
@@ -1329,16 +1388,38 @@ p {
     scroll-behavior: auto;
   }
 
-  .reveal {
+  .reveal,
+  .reveal--left,
+  .reveal--right,
+  .reveal--scale,
+  .reveal--blur,
+  .service-card.reveal,
+  .doc-card.reveal,
+  .focus-item.reveal,
+  .process-step.reveal {
     opacity: 1;
     transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .section-heading.reveal h2,
+  .section-heading.reveal.in h2 {
+    clip-path: none;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-shape {
     transition: none;
   }
 
   .button:hover,
   .doc-card:hover,
   .service-card:hover,
-  .gallery-grid img:hover {
+  .gallery-grid img:hover,
+  .media-frame:hover img,
+  .about-photo:hover img {
     transform: none;
   }
 }

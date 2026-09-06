@@ -36,12 +36,27 @@
   }
 
   /* ---------- Появление блоков при прокрутке ---------- */
-  const revealItems = document.querySelectorAll('.reveal');
+  const revealItems = Array.from(document.querySelectorAll('.reveal'));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (reduceMotion || !('IntersectionObserver' in window)) {
     revealItems.forEach((el) => el.classList.add('in'));
   } else {
+    // ступенчатая задержка для соседних .reveal внутри одного контейнера
+    const groups = new Map();
+    revealItems.forEach((el) => {
+      const parent = el.parentElement;
+      const list = groups.get(parent) || [];
+      list.push(el);
+      groups.set(parent, list);
+    });
+    groups.forEach((list) => {
+      if (list.length < 2) return;
+      list.forEach((el, i) => {
+        el.style.setProperty('--reveal-delay', Math.min(i * 75, 375) + 'ms');
+      });
+    });
+
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -51,9 +66,36 @@
           }
         });
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.1 }
     );
     revealItems.forEach((el) => revealObserver.observe(el));
+
+    /* ---------- Мягкий параллакс фоновых фигур в hero ---------- */
+    const parallax = Array.from(document.querySelectorAll('[data-parallax]')).map((el) => ({
+      el,
+      speed: parseFloat(el.dataset.parallax) || 0,
+    }));
+    if (parallax.length) {
+      let ticking = false;
+      const update = () => {
+        const y = window.scrollY;
+        parallax.forEach(({ el, speed }) => {
+          el.style.transform = `translate3d(0, ${(y * speed).toFixed(1)}px, 0)`;
+        });
+        ticking = false;
+      };
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+          }
+        },
+        { passive: true }
+      );
+      update();
+    }
   }
 
   /* ---------- Подсветка активного пункта меню ---------- */
@@ -83,12 +125,10 @@
   if (yearNode) yearNode.textContent = String(new Date().getFullYear());
 
   /* ---------- Форма заявки ----------
-     LEAD_ENDPOINT — адрес обработчика на сервере Алии, который пересылает
-     заявку боту в Telegram (см. /server/aliya-lead.php). Пока строка пустая —
-     заявка уходит через WhatsApp с готовым текстом. Когда endpoint задан,
-     заявка отправляется на сервер, а WhatsApp остаётся запасным вариантом.
-     ВАЖНО: адрес должен быть https:// — иначе браузер заблокирует запрос. */
-  const LEAD_ENDPOINT = '';
+     LEAD_ENDPOINT — обработчик на сервере, который шлёт заявку боту в Telegram
+     (см. /server/aliya-lead.php). Если сервер недоступен или ещё не настроен,
+     форма автоматически откроется в WhatsApp с тем же текстом. */
+  const LEAD_ENDPOINT = 'https://maxatlab.kz/aliya-lead.php';
   const WHATSAPP_NUMBER = '87761550328';
   const form = document.querySelector('#contact-form');
   if (!form) return;
@@ -137,13 +177,17 @@
     }
   };
 
-  const sendToServer = (payload) =>
-    fetch(LEAD_ENDPOINT, {
+  const sendToServer = async (payload) => {
+    // text/plain — «простой» запрос без CORS-preflight; ответ читаем в режиме cors.
+    const res = await fetch(LEAD_ENDPOINT, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ ...payload, text: buildMessage(payload), page: location.href }),
     });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res;
+  };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();

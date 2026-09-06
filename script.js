@@ -129,7 +129,7 @@
      (см. /server/aliya-lead.php). Если сервер недоступен или ещё не настроен,
      форма автоматически откроется в WhatsApp с тем же текстом. */
   const LEAD_ENDPOINT = 'https://maxatlab.kz/aliya-lead.php';
-  const WHATSAPP_NUMBER = '87761550328';
+  const WHATSAPP_NUMBER = '77761550328';
   const form = document.querySelector('#contact-form');
   if (!form) return;
 
@@ -173,7 +173,7 @@
     if (win) {
       showStatus('Открываем WhatsApp с вашей заявкой — отправьте сообщение, чтобы завершить.', 'success');
     } else {
-      showStatus('Не удалось открыть WhatsApp. Напишите напрямую: 8 (776) 155-03-28.', 'error');
+      showStatus('Не удалось открыть WhatsApp. Напишите напрямую: +7 776 155 03 28.', 'error');
     }
   };
 

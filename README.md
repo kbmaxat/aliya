@@ -33,7 +33,7 @@ https://kbmaxat.github.io/aliya/
 
 ## Контакты
 - Email: zhakupovaal12@gmail.com
-- WhatsApp: https://wa.me/87761550328
+- WhatsApp: https://wa.me/77761550328
 - Instagram: https://www.instagram.com/_aliyaserikbaevna/
 
 Хотите такой же сайт — пишите: maksat.kab@gmail.com (цена обсуждается индивидуально).

@@ -7,42 +7,31 @@
 Форма на сайте ──POST──> https://ВАШ-ДОМЕН/aliya-lead.php ──> Telegram Bot API ──> ваш чат
 ```
 
-## 1. Создать бота и получить токен
+## 1. Бот
 
-1. В Telegram откройте **@BotFather** → `/newbot`.
-2. Задайте имя (например `Aliya Zayavki`) и username (например `aliya_zayavki_bot`).
-3. BotFather пришлёт **токен** вида `1234567890:AAH...` — сохраните его.
+Бот уже создан: **@aliyamaxatpsybot** (t.me/aliyamaxatpsybot).
+Токен лежит в `server/config.local.php` (этот файл не коммитится в git).
 
 ## 2. Узнать chat_id (куда слать заявки)
 
 **В личку себе:**
-1. Напишите своему новому боту любое сообщение (например `старт`).
-2. Откройте в браузере `https://api.telegram.org/bot<ТОКЕН>/getUpdates`
-3. Найдите `"chat":{"id":123456789` — это ваш `chat_id`.
+1. Откройте https://t.me/aliyamaxatpsybot и отправьте боту любое сообщение (`/start`).
+2. Откройте `https://api.telegram.org/bot<ТОКЕН>/getUpdates`
+3. Найдите `"chat":{"id":123456789` — это ваш `chat_id`. Впишите его в `config.local.php`.
 
 **В группу (несколько человек видят заявки):**
 1. Создайте группу, добавьте бота, отключите ему Privacy Mode в @BotFather
-   (`/setprivacy` → Disable) — или просто напишите в группе `/start@ваш_бот`.
+   (`/setprivacy` → Disable) — или просто напишите в группе `/start@aliyamaxatpsybot`.
 2. Тот же `getUpdates` покажет `"chat":{"id":-100123...` — id группы (со знаком минус).
 
 ## 3. Загрузить обработчик на сервер
 
-1. Скопируйте `aliya-lead.php` из этой папки в веб-корень сервера так,
-   чтобы он открывался по **HTTPS**: `https://ВАШ-ДОМЕН/aliya-lead.php`
+1. Скопируйте на сервер в веб-корень **два файла** — `aliya-lead.php` и `config.local.php` —
+   так, чтобы `aliya-lead.php` открывался по **HTTPS**: `https://ВАШ-ДОМЕН/aliya-lead.php`
    (HTTP не подойдёт — браузер заблокирует запрос со страницы на github.io).
-2. Пропишите токен и chat_id. Лучше через переменные окружения:
-   - Apache (`.htaccess` рядом с файлом или в конфиге виртхоста):
-     ```
-     SetEnv TELEGRAM_BOT_TOKEN 1234567890:AAH...
-     SetEnv TELEGRAM_CHAT_ID 123456789
-     ```
-   - nginx + PHP-FPM (`/etc/php/*/fpm/pool.d/www.conf`):
-     ```
-     env[TELEGRAM_BOT_TOKEN] = 1234567890:AAH...
-     env[TELEGRAM_CHAT_ID] = 123456789
-     ```
-   - либо просто впишите значения в константы `$BOT_TOKEN` / `$CHAT_ID`
-     в начале `aliya-lead.php` (проще, но токен окажется в файле).
+2. В `config.local.php` уже вписан токен; допишите туда `TG_CHAT_ID` из шага 2.
+   (Альтернатива — переменные окружения `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID`
+   через `SetEnv` в Apache или `env[...]` в PHP-FPM; тогда `config.local.php` не нужен.)
 3. Проверьте из консоли:
    ```
    curl -X POST https://ВАШ-ДОМЕН/aliya-lead.php \

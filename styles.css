@@ -189,6 +189,17 @@ p {
   margin-top: 1.15em;
 }
 
+/* Выключка по ширине для блоков с длинным текстом */
+.prose p,
+.corporate-info > p,
+.contact-copy > p,
+.pricing-card > p,
+.about-copy p {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 /* ---------- Buttons ---------- */
 .button {
   --btn-bg: var(--forest);
@@ -572,16 +583,41 @@ p {
   object-fit: cover;
 }
 
-.about-intro h2 {
-  margin-bottom: 4px;
-}
-
 .about-photo {
-  margin-top: 26px;
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
 }
 
 .about-photo img {
-  height: clamp(300px, 40vw, 440px);
+  display: block;
+  width: 100%;
+  height: clamp(380px, 52vw, 560px);
+  object-fit: cover;
+  object-position: 50% 12%;
+}
+
+.about-photo figcaption {
+  position: absolute;
+  inset: 0 0 auto 0;
+  padding: 24px 26px 56px;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 30, 24, 0.88) 0%,
+    rgba(18, 30, 24, 0.66) 45%,
+    rgba(18, 30, 24, 0) 100%
+  );
+}
+
+.about-photo figcaption h2 {
+  margin: 0;
+  max-width: 22ch;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.15;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 /* ---------- Documents ---------- */

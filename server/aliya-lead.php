@@ -6,14 +6,23 @@
  *   https://ВАШ-ДОМЕН/aliya-lead.php
  * и пропишите этот адрес в script.js -> const LEAD_ENDPOINT.
  *
- * Токен бота и chat_id задайте одним из способов:
- *   1) переменные окружения TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID
- *      (в конфиге веб-сервера / PHP-FPM / .htaccess SetEnv);
- *   2) или прямо в константах ниже.
+ * Токен бота и chat_id задайте одним из способов (в порядке приоритета):
+ *   1) файл server/config.local.php рядом с этим файлом (НЕ коммитится в git):
+ *        <?php
+ *        define('TG_BOT_TOKEN', '123456:AA...');
+ *        define('TG_CHAT_ID', '123456789');
+ *   2) переменные окружения TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID
+ *      (в конфиге веб-сервера / PHP-FPM / .htaccess SetEnv).
  */
 
-$BOT_TOKEN = getenv('TELEGRAM_BOT_TOKEN') ?: '00000000:PASTE_YOUR_BOT_TOKEN';
-$CHAT_ID   = getenv('TELEGRAM_CHAT_ID')   ?: '000000000';
+@include __DIR__ . '/config.local.php';
+
+$BOT_TOKEN = defined('TG_BOT_TOKEN') && TG_BOT_TOKEN
+    ? TG_BOT_TOKEN
+    : (getenv('TELEGRAM_BOT_TOKEN') ?: '00000000:PASTE_YOUR_BOT_TOKEN');
+$CHAT_ID = defined('TG_CHAT_ID') && TG_CHAT_ID
+    ? TG_CHAT_ID
+    : (getenv('TELEGRAM_CHAT_ID') ?: '000000000');
 
 /* Разрешаем запросы только с сайта (можно оставить * при желании). */
 $ALLOWED_ORIGIN = 'https://kbmaxat.github.io';

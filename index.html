@@ -6,20 +6,21 @@
     <title>Алия Жакупова | Психолог • Арт-терапевт</title>
     <meta
       name="description"
-      content="Психолог и арт-терапевт Алия Жакупова помогает людям справляться со стрессом, тревогой, выгоранием и внутренним напряжением через безопасные и творческие практики."
+      content="Психолог и арт-терапевт Алия Жакупова помогает справляться со стрессом, тревогой, выгоранием и внутренним напряжением через безопасные и творческие практики."
     />
+    <meta name="theme-color" content="#2c5e4a" />
     <meta property="og:title" content="Алия Жакупова | Психолог • Арт-терапевт" />
     <meta
       property="og:description"
       content="Профессиональная психологическая и арт-терапевтическая поддержка для взрослых, команд и организаций."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="./assets/images/photo_2_2026-09-01_22-05-57.jpg" />
+    <meta property="og:image" content="./assets/images/portrait.png" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -31,253 +32,297 @@
         "jobTitle": "Психолог, арт-терапевт",
         "description": "Психолог и арт-терапевт, работающий с эмоциональным напряжением, самопознанием, командной динамикой и групповыми программами.",
         "areaServed": "Казахстан",
-        "sameAs": [],
-        "url": "https://example.com"
+        "sameAs": ["https://www.instagram.com/_aliyaserikbaevna/"],
+        "url": "https://kbmaxat.github.io/aliya/"
       }
     </script>
   </head>
   <body>
-    <header class="site-header">
+    <a class="skip-link" href="#top">К основному содержанию</a>
+
+    <header class="site-header" data-header>
       <div class="container nav-wrap">
-        <a href="#top" class="brand" aria-label="Главная">
+        <a href="#top" class="brand" aria-label="Алия Жакупова — на главную">
           <span class="brand-mark">А</span>
-          <span>
+          <span class="brand-text">
             <strong>Алия Жакупова</strong>
             <small>Психолог • Арт-терапевт</small>
           </span>
         </a>
 
-        <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false">
+        <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false" data-nav-toggle>
           <span></span><span></span><span></span>
         </button>
 
-        <nav class="main-nav" aria-label="Главная навигация">
+        <nav class="main-nav" aria-label="Основная навигация" data-nav>
           <a href="#about">Обо мне</a>
           <a href="#education">Образование</a>
           <a href="#services">Услуги</a>
           <a href="#corporate">Организациям</a>
           <a href="#contact">Контакты</a>
+          <a href="#contact" class="button button-primary nav-cta">Записаться</a>
         </nav>
-        <a href="#contact" class="button button-primary nav-cta">Записаться</a>
-        <a href="./assets/documents/aliya-cv.pdf" class="button button-secondary nav-cv" target="_blank" rel="noopener">CV</a>
       </div>
     </header>
 
     <main id="top">
-      <section class="hero section">
+      <!-- HERO -->
+      <section class="hero">
         <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">Психолог • Арт-терапевт</p>
-            <h1>Профессиональная поддержка, которая помогает вернуться в контакт с собой.</h1>
+          <div class="hero-copy reveal">
+            <p class="kicker">Психолог • Арт-терапевт</p>
+            <h1>Поддержка, которая помогает вернуться в контакт&nbsp;с&nbsp;собой.</h1>
             <p class="lead">
-              Алия Жакупова помогает людям лучше понимать свои чувства, снижать внутреннее напряжение,
-              строить более безопасные отношения с собой и окружающими и находить опору в творчестве.
+              Алия Жакупова помогает лучше понимать свои чувства, снижать внутреннее напряжение
+              и находить опору — в диалоге и в творчестве. Бережно, без давления и оценок.
             </p>
             <div class="hero-actions">
-              <a href="#contact" class="button button-primary">Записаться</a>
-              <a href="#therapy" class="button button-secondary">Узнать об арт-терапии</a>
-              <a href="./assets/documents/aliya-cv.pdf" class="button button-secondary" target="_blank" rel="noopener">Скачать CV</a>
+              <a href="#contact" class="button button-primary">Записаться на встречу</a>
+              <a href="#therapy" class="button button-ghost">Узнать об арт-терапии</a>
+              <a href="./assets/documents/aliya-cv.pdf" class="button button-ghost" target="_blank" rel="noopener">Скачать CV</a>
             </div>
-            <ul class="hero-meta" aria-label="Ключевые характеристики">
+            <ul class="hero-chips" aria-label="Форматы работы">
               <li>Индивидуальная работа</li>
               <li>Групповые программы</li>
               <li>Корпоративные события</li>
             </ul>
           </div>
 
-          <div class="hero-visual">
-            <div class="image-card">
-              <img src="./assets/images/photo_2_2026-09-01_22-05-57.jpg" alt="Алия Жакупова в спокойной уличной обстановке" />
+          <div class="hero-figure reveal">
+            <span class="hero-shape hero-shape--main" aria-hidden="true"></span>
+            <span class="hero-shape hero-shape--accent" aria-hidden="true"></span>
+            <img
+              class="hero-portrait"
+              src="./assets/images/portrait.png"
+              width="1024"
+              height="1257"
+              alt="Портрет Алии Жакуповой"
+            />
+            <span class="hero-float" aria-hidden="true">
+              <span class="hero-float__dot"></span>
+              Индивидуально · Группы · Компании
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUST STRIP -->
+      <section class="trust">
+        <div class="container">
+          <div class="trust-bar reveal">
+            <div>
+              <span>Образование</span>
+              <strong>Бакалавр педагогики и психологии</strong>
+            </div>
+            <div>
+              <span>Дополнительно</span>
+              <strong>Арт-терапия • профилактика буллинга</strong>
+            </div>
+            <div>
+              <span>Направление</span>
+              <strong>Эмоциональная устойчивость и творчество</strong>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="trust-strip">
-        <div class="container mini-grid">
-          <div><span>Образование</span> <strong>Бакалавр педагогики и психологии</strong></div>
-          <div><span>Доп. обучение</span> <strong>Арт-терапия • профилактика буллинга</strong></div>
-          <div><span>Направление</span> <strong>Эмоциональная устойчивость и творчество</strong></div>
-        </div>
-      </section>
-
-      <section id="about" class="section about">
-        <div class="container split-block">
-          <div class="section-heading">
-            <p class="eyebrow">Обо мне</p>
+      <!-- ABOUT -->
+      <section id="about" class="band band-sage section">
+        <div class="container split">
+          <div class="section-heading reveal">
+            <p class="kicker">Обо мне</p>
             <h2>Психологическая работа, которая не давит и не оценивает.</h2>
           </div>
-          <div class="about-copy">
+          <div class="prose reveal">
             <p>
-              Я — психолог и арт-терапевт, помогаю людям не просто «выдержать» стресс и внутреннее напряжение,
-              а постепенно научиться понимать себя, замечать свои ресурсы и чувствовать больше ясности и спокойствия.
+              Я — психолог и арт-терапевт. Помогаю не просто «выдержать» стресс и напряжение,
+              а постепенно научиться понимать себя, замечать свои ресурсы и чувствовать больше
+              ясности и спокойствия.
             </p>
             <p>
-              Моя работа строится на сочетании психологической поддержки, безопасной коммуникации и творческой практики.
-              Для кого-то это становится способом снизить тревогу и усталость, для кого-то — возможностью лучше понимать себя,
-              свои реакции и границы, а для команд — инструментом мягкой и продуктивной внутренней работы.
+              Моя работа строится на сочетании психологической поддержки, безопасной коммуникации
+              и творческой практики. Для кого-то это способ снизить тревогу и усталость, для
+              кого-то — возможность лучше понимать свои реакции и границы, а для команд —
+              инструмент мягкой и продуктивной внутренней работы.
             </p>
             <p>
-              Работаю как с индивидуальными запросами, так и с группами, организациями и образовательными учреждениями,
-              создавая атмосферу доверия, свободы выражения и понятной рефлексии.
+              Работаю с индивидуальными запросами, группами, организациями и образовательными
+              учреждениями — создавая атмосферу доверия, свободы выражения и понятной рефлексии.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="education" class="section education">
+      <!-- EDUCATION -->
+      <section id="education" class="band band-paper section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Образование и опыт</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Образование и опыт</p>
             <h2>Основа — образование, практика и профессиональная ответственность.</h2>
           </div>
 
-          <div class="documents-grid">
-            <a class="document-card" href="./assets/documents/bakalavr-diploma.pdf" target="_blank" rel="noopener">
-              <span>Диплом</span>
+          <div class="doc-grid">
+            <a class="doc-card reveal" href="./assets/documents/bakalavr-diploma.pdf" target="_blank" rel="noopener">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
+              <span class="doc-card__label">Диплом</span>
               <strong>Бакалавр педагогики и психологии</strong>
             </a>
-            <a class="document-card" href="./assets/documents/edu-master-certificate.pdf" target="_blank" rel="noopener">
-              <span>Сертификат</span>
+            <a class="doc-card reveal" href="./assets/documents/edu-master-certificate.pdf" target="_blank" rel="noopener">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
+              <span class="doc-card__label">Сертификат</span>
               <strong>Профилактика буллинга и суицидальных рисков</strong>
             </a>
           </div>
 
-          <div class="timeline">
-            <article class="timeline-item">
-              <span class="year">2026</span>
+          <ol class="timeline">
+            <li class="timeline-item reveal">
+              <span class="timeline-year">2026</span>
               <div>
                 <h3>Бакалавр педагогики и психологии</h3>
                 <p>Костанайский региональный университет имени Ахмета Байтурсынулы.</p>
               </div>
-            </article>
-            <article class="timeline-item">
-              <span class="year">2025</span>
+            </li>
+            <li class="timeline-item reveal">
+              <span class="timeline-year">2025</span>
               <div>
                 <h3>Повышение квалификации</h3>
                 <p>Курс по профилактике буллинга и суицидальных рисков в образовательной среде.</p>
               </div>
-            </article>
-            <article class="timeline-item">
-              <span class="year">2026</span>
+            </li>
+            <li class="timeline-item reveal">
+              <span class="timeline-year">2026</span>
               <div>
                 <h3>Арт-терапевтическая практика</h3>
                 <p>Углублённая работа с творческой диагностикой, эмоциональной регуляцией и групповыми практиками.</p>
               </div>
-            </article>
-            <article class="timeline-item">
-              <span class="year">Практика</span>
+            </li>
+            <li class="timeline-item reveal">
+              <span class="timeline-year">Практика</span>
               <div>
                 <h3>Основные компетенции</h3>
                 <p>Психологическая поддержка, эмоциональная устойчивость, профилактика выгорания, работа с тревогой и стрессом, групповая коммуникация.</p>
               </div>
-            </article>
-          </div>
+            </li>
+          </ol>
         </div>
       </section>
 
-      <section id="therapy" class="section therapy">
+      <!-- FOCUS AREAS (forest band) -->
+      <section id="therapy" class="band band-forest section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">С чем я работаю</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">С чем я работаю</p>
             <h2>Помогаю возвращаться к себе и собирать ресурс.</h2>
           </div>
-          <div class="focus-grid">
-            <div class="focus-card">Стресс и эмоциональное напряжение</div>
-            <div class="focus-card">Самопознание и самооценка</div>
-            <div class="focus-card">Тревога и перегрузка</div>
-            <div class="focus-card">Выгорание и усталость</div>
-            <div class="focus-card">Коммуникация и взаимодействие</div>
-            <div class="focus-card">Адаптация и внутренний ресурс</div>
-            <div class="focus-card">Работа в команде</div>
-            <div class="focus-card">Творческое раскрытие</div>
+          <ul class="focus-grid">
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Стресс и эмоциональное напряжение</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Самопознание и самооценка</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Тревога и перегрузка</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Выгорание и усталость</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Коммуникация и взаимодействие</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Адаптация и внутренний ресурс</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Работа в команде</li>
+            <li class="focus-item reveal"><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>Творческое раскрытие</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ART-THERAPY EXPLAINED -->
+      <section class="band band-paper section">
+        <div class="container split split--media reveal">
+          <div class="media-frame">
+            <img src="./assets/images/photo_8_2026-09-01_22-05-57.jpg" alt="Книга и осенние листья — символ творческого отдыха" loading="lazy" />
+          </div>
+          <div class="prose">
+            <p class="kicker">Что такое арт-терапия</p>
+            <h2>Не про «рисовать красиво», а про честную встречу с собой.</h2>
+            <p>
+              Арт-терапия — это форма психологической поддержки, где творчество становится
+              инструментом проживания чувств, осмысления переживаний и снижения внутреннего
+              напряжения. В процессе можно выразить то, что трудно сказать словами: тревогу,
+              усталость, потребность, конфликт или, наоборот, ресурс.
+            </p>
+            <p>
+              Важно: арт-терапия не обещает мгновенного результата и не заменяет
+              специализированную медицинскую помощь. Она помогает замедлиться, почувствовать
+              себя безопасно и увидеть свои мысли и чувства яснее.
+            </p>
           </div>
         </div>
       </section>
 
-      <section class="section art-explained">
-        <div class="container split-block alt-split">
-          <div class="explained-image card-panel">
-            <img src="./assets/images/photo_8_2026-09-01_22-05-57.jpg" alt="Листья и книга, символ творческого отдыха" />
-          </div>
-          <div class="explained-copy">
-            <p class="eyebrow">Что такое арт-терапия</p>
-            <h2>Это не про «рисовать красиво», а про безопасно и честно встретиться с собой.</h2>
-            <p>
-              Арт-терапия — это форма психологической поддержки, где творчество становится инструментом проживания чувств,
-              осмысления переживаний и снижения внутреннего напряжения. В процессе работы человек может выражать то,
-              что трудно сказать словами: тревогу, усталость, потребность, конфликт, внутреннюю усталость или ресурс.
-            </p>
-            <p>
-              Важно, что арт-терапия не обещает мгновенного результата и не заменяет специализированную медицинскую помощь.
-              Она помогает замедлиться, почувствовать себя безопасно и увидеть свои мысли и чувства более ясно.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section process">
+      <!-- PROCESS -->
+      <section class="band band-sage section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Как проходит встреча</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Как проходит встреча</p>
             <h2>Простой и понятный процесс.</h2>
           </div>
-          <div class="process-grid">
-            <div class="process-step"><span>01</span><h3>Знакомство</h3><p>Определяем запрос, контекст и цель встречи.</p></div>
-            <div class="process-step"><span>02</span><h3>Вводная часть</h3><p>Создаём ощущение безопасности и ясности.</p></div>
-            <div class="process-step"><span>03</span><h3>Практика</h3><p>Творческая работа через рисунок, символы, визуализацию и материалы.</p></div>
-            <div class="process-step"><span>04</span><h3>Рефлексия</h3><p>Осмысливаем смысл, эмоции и новые замечания.</p></div>
-            <div class="process-step"><span>05</span><h3>Обсуждение</h3><p>Формулируем, что важно взять с собой после встречи.</p></div>
-            <div class="process-step"><span>06</span><h3>Завершение</h3><p>Подводим итог и при необходимости определяем следующий шаг.</p></div>
-          </div>
+          <ol class="process-grid">
+            <li class="process-step reveal"><span class="process-num">01</span><h3>Знакомство</h3><p>Определяем запрос, контекст и цель встречи.</p></li>
+            <li class="process-step reveal"><span class="process-num">02</span><h3>Вводная часть</h3><p>Создаём ощущение безопасности и ясности.</p></li>
+            <li class="process-step reveal"><span class="process-num">03</span><h3>Практика</h3><p>Творческая работа через рисунок, символы, визуализацию и материалы.</p></li>
+            <li class="process-step reveal"><span class="process-num">04</span><h3>Рефлексия</h3><p>Осмысляем смысл, эмоции и новые замечания.</p></li>
+            <li class="process-step reveal"><span class="process-num">05</span><h3>Обсуждение</h3><p>Формулируем, что важно взять с собой после встречи.</p></li>
+            <li class="process-step reveal"><span class="process-num">06</span><h3>Завершение</h3><p>Подводим итог и при необходимости намечаем следующий шаг.</p></li>
+          </ol>
         </div>
       </section>
 
-      <section id="services" class="section services">
+      <!-- SERVICES -->
+      <section id="services" class="band band-paper section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Услуги</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Услуги</p>
             <h2>Поддержка для людей, команд и организаций.</h2>
           </div>
           <div class="service-grid">
-            <article class="service-card">
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
               <h3>Индивидуальная работа</h3>
-              <p>Психологическая поддержка в диалоге, направленная на снижение тревоги, улучшение самопонимания и восстановление эмоционального равновесия.</p>
+              <p>Психологическая поддержка в диалоге: снижение тревоги, улучшение самопонимания и восстановление эмоционального равновесия.</p>
             </article>
-            <article class="service-card">
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
               <h3>Групповые программы</h3>
               <p>Работа в малых группах для безопасного выражения чувств, осмысления внутренних процессов и укрепления ресурсного состояния.</p>
             </article>
-            <article class="service-card">
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
               <h3>Арт-терапия</h3>
               <p>Творческие практики, которые помогают раскрывать эмоции и снижать внутреннее напряжение через образ, материал и процесс.</p>
             </article>
-            <article class="service-card">
-              <h3>Программы для детей и подростков</h3>
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
+              <h3>Дети и подростки</h3>
               <p>Поддержка эмоциональной устойчивости и коммуникации в безопасной и понятной форме.</p>
             </article>
-            <article class="service-card">
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
               <h3>Мероприятия для школ</h3>
               <p>Психологически безопасные программы для детей, педагогов и школьного сообщества.</p>
             </article>
-            <article class="service-card">
+            <article class="service-card reveal">
+              <span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" /></svg></span>
               <h3>Корпоративные программы</h3>
-              <p>Мероприятия для команд и организаций по снижению эмоционального напряжения, укреплению доверия и здоровой коммуникации.</p>
+              <p>Мероприятия для команд и организаций: снижение напряжения, укрепление доверия и здоровой коммуникации.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="corporate" class="section corporate-feature">
-        <div class="container corporate-block">
-          <div class="corporate-info">
-            <p class="eyebrow">Для школ, компаний и организаций</p>
+      <!-- CORPORATE (forest band) -->
+      <section id="corporate" class="band band-forest section">
+        <div class="container corporate">
+          <div class="corporate-info reveal">
+            <p class="kicker">Для школ, компаний и организаций</p>
             <h2>Арт-терапия для команд и организаций.</h2>
             <p>
-              Формат 90–120 минут помогает участникам замедлиться, снизить накопленное напряжение и почувствовать большую внутреннюю свободу.
-              Такие встречи особенно актуальны для школ, компаний, HR-команд, университетов, НПО и профессиональных сообществ.
+              Формат 90–120 минут помогает участникам замедлиться, снизить накопленное напряжение
+              и почувствовать большую внутреннюю свободу. Особенно актуально для школ, компаний,
+              HR-команд, университетов, НПО и профессиональных сообществ.
             </p>
-            <ul>
+            <ul class="check-list">
               <li>Снижение эмоционального напряжения</li>
               <li>Профилактика выгорания</li>
               <li>Командное взаимодействие</li>
@@ -286,37 +331,39 @@
               <li>Творческое переключение</li>
             </ul>
           </div>
-          <aside class="offer-card">
-            <span>Коммерческое предложение</span>
-            <strong>90 000 ₸</strong>
-            <small>Пакет START · до 10 участников</small>
+          <aside class="offer-card reveal">
+            <p class="kicker">Коммерческое предложение</p>
+            <strong class="offer-price">90 000 ₸</strong>
+            <p class="offer-note">Пакет START · до 10 участников</p>
             <a href="./assets/documents/commercial-offer.pdf" class="button button-primary" target="_blank" rel="noopener">Скачать PDF</a>
           </aside>
         </div>
       </section>
 
-      <section class="section gallery-section">
+      <!-- GALLERY -->
+      <section class="band band-paper section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Галерея</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Галерея</p>
             <h2>Фотографии и атмосфера работы.</h2>
           </div>
-          <div class="gallery-grid">
-            <img src="./assets/images/photo_2_2026-09-01_22-05-57.jpg" alt="Психолог на прогулке с книгой" />
-            <img src="./assets/images/photo_3_2026-09-01_22-05-57.jpg" alt="Детская арт-терапия" />
-            <img src="./assets/images/photo_5_2026-09-01_22-05-57.jpg" alt="Профильный портрет психолога" />
-            <img src="./assets/images/photo_8_2026-09-01_22-05-57.jpg" alt="Книга и осенние листья как символ работы с собой" />
+          <div class="gallery-grid reveal">
+            <img src="./assets/images/photo_2_2026-09-01_22-05-57.jpg" alt="Психолог на прогулке с книгой" loading="lazy" />
+            <img src="./assets/images/photo_3_2026-09-01_22-05-57.jpg" alt="Детская арт-терапия" loading="lazy" />
+            <img src="./assets/images/photo_5_2026-09-01_22-05-57.jpg" alt="Профильный портрет психолога" loading="lazy" />
+            <img src="./assets/images/photo_8_2026-09-01_22-05-57.jpg" alt="Книга и осенние листья как символ работы с собой" loading="lazy" />
           </div>
         </div>
       </section>
 
-      <section class="section video-section">
+      <!-- VIDEO -->
+      <section class="band band-sage section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Видео</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Видео</p>
             <h2>Короткие видео о работе, ощущениях и арт-терапии.</h2>
           </div>
-          <div class="video-grid">
+          <div class="video-grid reveal">
             <div class="video-item">
               <iframe class="video-embed" src="https://www.youtube.com/embed/McL-ZjMoaLM?rel=0" title="Видео 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
@@ -339,58 +386,70 @@
         </div>
       </section>
 
-      <section class="section pricing">
+      <!-- PRICING -->
+      <section class="band band-paper section">
         <div class="container">
-          <div class="section-heading centered">
-            <p class="eyebrow">Стоимость</p>
+          <div class="section-heading centered reveal">
+            <p class="kicker">Стоимость</p>
             <h2>Индивидуальная сессия</h2>
           </div>
-          <div class="pricing-card">
+          <div class="pricing-card reveal">
             <p class="pricing-price">20 000 ₸</p>
-            <p class="pricing-note">до конца 2026 года специальная цена — 10 000 ₸</p>
-            <p class="pricing-text">
-              Я, Алия, помогаю людям справляться со стрессом, тревогой, внутренним напряжением и переутомлением через безопасную и поддерживающую психологическую работу.
+            <p class="pricing-note">до конца 2026 года — специальная цена 10 000 ₸</p>
+            <p>
+              Я, Алия, помогаю справляться со стрессом, тревогой, внутренним напряжением и
+              переутомлением через безопасную и поддерживающую психологическую работу.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="section contact-section">
+      <!-- CONTACT -->
+      <section id="contact" class="band band-sage section">
         <div class="container contact-grid">
-          <div class="contact-copy">
-            <p class="eyebrow">Контакты</p>
+          <div class="contact-copy reveal">
+            <p class="kicker">Контакты</p>
             <h2>Свяжитесь, чтобы обсудить формат работы.</h2>
             <p>
-              Для записи на индивидуальную встречу, групповую программу или корпоративное мероприятие заполните форму справа
-              или напишите напрямую через удобный канал связи.</p>
+              Для записи на индивидуальную встречу, групповую программу или корпоративное
+              мероприятие заполните форму или напишите напрямую удобным способом.
+            </p>
             <ul class="contact-list">
-              <li><strong>WhatsApp:</strong> <a href="https://wa.me/87761550328" target="_blank" rel="noopener">8 (776) 155-03-28</a></li>
-              <li><strong>Email:</strong> <a href="mailto:zhakupovaal12@gmail.com">zhakupovaal12@gmail.com</a></li>
-              <li><strong>Instagram:</strong> <a href="https://www.instagram.com/_aliyaserikbaevna/" target="_blank" rel="noopener">@_aliyaserikbaevna</a></li>
+              <li>
+                <span>WhatsApp</span>
+                <a href="https://wa.me/87761550328" target="_blank" rel="noopener">8 (776) 155-03-28</a>
+              </li>
+              <li>
+                <span>Email</span>
+                <a href="mailto:zhakupovaal12@gmail.com">zhakupovaal12@gmail.com</a>
+              </li>
+              <li>
+                <span>Instagram</span>
+                <a href="https://www.instagram.com/_aliyaserikbaevna/" target="_blank" rel="noopener">@_aliyaserikbaevna</a>
+              </li>
             </ul>
             <div class="contact-actions">
-              <a href="#contact-form" class="button button-primary">Записаться</a>
-              <a href="./assets/documents/commercial-offer.pdf" class="button button-secondary" target="_blank" rel="noopener">Скачать PDF</a>
-              <a href="./assets/documents/aliya-cv.pdf" class="button button-secondary" target="_blank" rel="noopener">Скачать CV</a>
+              <a href="./assets/documents/commercial-offer.pdf" class="button button-ghost" target="_blank" rel="noopener">Коммерческое предложение</a>
+              <a href="./assets/documents/aliya-cv.pdf" class="button button-ghost" target="_blank" rel="noopener">Скачать CV</a>
             </div>
           </div>
 
-          <form id="contact-form" class="contact-form" novalidate>
-            <label>
-              Имя
-              <input type="text" name="name" placeholder="Ваше имя" />
-            </label>
-            <label>
-              Телефон
-              <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" />
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" placeholder="name@example.com" />
-            </label>
-            <label>
-              Тип обращения
-              <select name="request_type">
+          <form id="contact-form" class="contact-form reveal" novalidate>
+            <div class="field">
+              <label for="f-name">Имя</label>
+              <input id="f-name" type="text" name="name" placeholder="Ваше имя" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="f-phone">Телефон</label>
+              <input id="f-phone" type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" />
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" type="email" name="email" placeholder="name@example.com" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="f-type">Тип обращения</label>
+              <select id="f-type" name="request_type">
                 <option value="">Выберите</option>
                 <option>Индивидуальная консультация</option>
                 <option>Арт-терапия</option>
@@ -399,35 +458,33 @@
                 <option>Корпоративная программа</option>
                 <option>Другое</option>
               </select>
-            </label>
-            <label>
-              Организация
-              <input type="text" name="organization" placeholder="Название организации" />
-            </label>
-            <label>
-              Количество участников
-              <input type="number" name="participants" min="1" placeholder="Например: 12" />
-            </label>
-            <label>
-              Желаемая дата
-              <input type="date" name="date" />
-            </label>
-            <label>
-              Комментарий
-              <textarea name="comment" rows="4" placeholder="Расскажите, как мы можем помочь"></textarea>
-            </label>
-            <label class="checkbox-row">
-              <input type="checkbox" name="consent" required />
-              <span>Я согласен(на) на обработку предоставленных персональных данных для обратной связи по моей заявке.</span>
-            </label>
-            <div class="captcha-box">
-              <label>
-                Защита от спама
-                <input type="text" name="anti_spam" placeholder="Вставьте число 7" required />
-              </label>
             </div>
-            <button type="submit" class="button button-primary submit-button">Отправить заявку</button>
-            <div class="form-status" aria-live="polite"></div>
+            <div class="field">
+              <label for="f-org">Организация</label>
+              <input id="f-org" type="text" name="organization" placeholder="Название организации" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label for="f-participants">Количество участников</label>
+              <input id="f-participants" type="number" name="participants" min="1" placeholder="Например: 12" />
+            </div>
+            <div class="field">
+              <label for="f-date">Желаемая дата</label>
+              <input id="f-date" type="date" name="date" />
+            </div>
+            <div class="field field--full">
+              <label for="f-comment">Комментарий</label>
+              <textarea id="f-comment" name="comment" rows="4" placeholder="Расскажите, как я могу помочь"></textarea>
+            </div>
+            <label class="checkbox-row field--full">
+              <input type="checkbox" name="consent" required />
+              <span>Согласен(на) на обработку персональных данных для обратной связи по моей заявке.</span>
+            </label>
+            <div class="field field--full">
+              <label for="f-antispam">Защита от спама — введите число 7</label>
+              <input id="f-antispam" type="text" name="anti_spam" inputmode="numeric" placeholder="7" required />
+            </div>
+            <button type="submit" class="button button-primary submit-button field--full">Отправить заявку</button>
+            <p class="form-status field--full" role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
@@ -436,16 +493,21 @@
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
+          <span class="brand-mark brand-mark--footer">А</span>
           <h3>Алия Жакупова</h3>
           <p>Психолог • Арт-терапевт</p>
         </div>
         <div>
-          <p><a href="https://wa.me/87761550328" target="_blank" rel="noopener">WhatsApp</a> / <a href="mailto:zhakupovaal12@gmail.com">Email</a> / <a href="https://www.instagram.com/_aliyaserikbaevna/" target="_blank" rel="noopener">Instagram</a></p>
+          <p class="footer-label">Связь</p>
+          <a href="https://wa.me/87761550328" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="mailto:zhakupovaal12@gmail.com">Email</a>
+          <a href="https://www.instagram.com/_aliyaserikbaevna/" target="_blank" rel="noopener">Instagram</a>
         </div>
         <div>
-          <p>© 2026</p>
+          <p class="footer-label">Документы</p>
           <a href="./privacy-policy.html">Политика обработки данных</a>
           <a href="./assets/documents/aliya-cv.pdf" target="_blank" rel="noopener">Скачать CV</a>
+          <p class="footer-copy">© <span data-year>2026</span> Алия Жакупова</p>
         </div>
       </div>
     </footer>

@@ -4,41 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Политика обработки данных | Алия Жакупова</title>
+    <meta name="theme-color" content="#2c5e4a" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
     <style>
       .policy-wrap {
-        max-width: 920px;
-        margin: 64px auto 96px;
-        background: rgba(255,255,255,0.42);
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 32px 28px;
+        max-width: 860px;
+        margin: clamp(48px, 8vw, 96px) auto;
+        padding: clamp(28px, 5vw, 52px);
+        background: var(--card);
+        border: 1px solid var(--line-soft);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
       }
       .policy-wrap h1 {
-        margin-bottom: 18px;
+        margin-bottom: 20px;
       }
       .policy-wrap h2 {
-        font-size: 2rem;
-        margin-top: 26px;
+        font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+        margin: 34px 0 10px;
       }
-      .policy-wrap p,
+      .policy-wrap p {
+        margin-bottom: 12px;
+      }
+      .policy-wrap ul {
+        list-style: disc;
+        padding-left: 22px;
+        margin-bottom: 12px;
+        color: var(--ink-soft);
+      }
       .policy-wrap li {
-        font-size: 1rem;
+        margin-bottom: 6px;
+      }
+      .policy-back {
+        display: inline-block;
+        margin-top: 32px;
+        font-weight: 700;
+        color: var(--clay);
       }
     </style>
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header is-scrolled">
       <div class="container nav-wrap">
-        <a href="./index.html" class="brand" aria-label="Главная">
+        <a href="./index.html" class="brand" aria-label="Алия Жакупова — на главную">
           <span class="brand-mark">А</span>
-          <span>
+          <span class="brand-text">
             <strong>Алия Жакупова</strong>
             <small>Психолог • Арт-терапевт</small>
           </span>
         </a>
-        <nav class="main-nav" aria-label="Навигация на страницу политики">
+        <nav class="main-nav" aria-label="Навигация">
           <a href="./index.html#about">Обо мне</a>
           <a href="./index.html#services">Услуги</a>
           <a href="./index.html#contact">Контакты</a>
@@ -47,7 +69,7 @@
     </header>
 
     <main class="container policy-wrap">
-      <p class="eyebrow">Политика обработки данных</p>
+      <p class="kicker">Политика обработки данных</p>
       <h1>Политика конфиденциальности</h1>
       <p>
         Настоящая политика обработки персональных данных разработана в целях обеспечения прозрачности и соблюдения требований
@@ -82,6 +104,8 @@
 
       <h2>7. Контакты</h2>
       <p>Для вопросов, связанных с обработкой данных, обращайтесь через форму связи на сайте или через актуальные контактные данные, указанные на странице контактов.</p>
+
+      <a class="policy-back" href="./index.html">← Вернуться на главную</a>
     </main>
   </body>
 </html>

@@ -1,16 +1,91 @@
-const navToggle = document.querySelector('.nav-toggle');
-const nav = document.querySelector('.main-nav');
+// Алия Жакупова — интерактив лендинга
 
-if (navToggle && nav) {
-  navToggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    const expanded = nav.classList.contains('open');
-    navToggle.setAttribute('aria-expanded', String(expanded));
-  });
-}
+(() => {
+  'use strict';
 
-const form = document.querySelector('#contact-form');
-if (form) {
+  const header = document.querySelector('[data-header]');
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+
+  /* ---------- Мобильное меню ---------- */
+  if (navToggle && nav) {
+    const setOpen = (open) => {
+      nav.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    };
+
+    navToggle.addEventListener('click', () => {
+      setOpen(!nav.classList.contains('open'));
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+
+  /* ---------- Тень шапки при скролле ---------- */
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---------- Появление блоков при прокрутке ---------- */
+  const revealItems = document.querySelectorAll('.reveal');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealItems.forEach((el) => el.classList.add('in'));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+    );
+    revealItems.forEach((el) => revealObserver.observe(el));
+  }
+
+  /* ---------- Подсветка активного пункта меню ---------- */
+  const navLinks = Array.from(document.querySelectorAll('.main-nav a[href^="#"]'));
+  const sections = navLinks
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const spyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = `#${entry.target.id}`;
+          navLinks.forEach((link) =>
+            link.classList.toggle('is-active', link.getAttribute('href') === id)
+          );
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    sections.forEach((section) => spyObserver.observe(section));
+  }
+
+  /* ---------- Текущий год в подвале ---------- */
+  const yearNode = document.querySelector('[data-year]');
+  if (yearNode) yearNode.textContent = String(new Date().getFullYear());
+
+  /* ---------- Форма заявки ---------- */
+  const form = document.querySelector('#contact-form');
+  if (!form) return;
+
   const statusNode = form.querySelector('.form-status');
   const showStatus = (message, type) => {
     if (!statusNode) return;
@@ -19,89 +94,39 @@ if (form) {
     if (type) statusNode.classList.add(type);
   };
 
-  form.addEventListener('submit', async (event) => {
+  const saveLocally = (payload) => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('aliya-form-submissions') || '[]');
+      stored.push({ timestamp: new Date().toISOString(), ...payload });
+      localStorage.setItem('aliya-form-submissions', JSON.stringify(stored));
+    } catch (error) {
+      console.warn('Не удалось сохранить заявку локально:', error);
+    }
+  };
+
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const antiSpam = form.querySelector('input[name="anti_spam"]');
     if (antiSpam && antiSpam.value.trim() !== '7') {
       antiSpam.setAttribute('aria-invalid', 'true');
       antiSpam.focus();
-      showStatus('Проверка spam: введите число 7.', 'error');
+      showStatus('Проверка от спама: введите число 7.', 'error');
+      return;
+    }
+    if (antiSpam) antiSpam.removeAttribute('aria-invalid');
+
+    const consent = form.querySelector('input[name="consent"]');
+    if (consent && !consent.checked) {
+      consent.focus();
+      showStatus('Отметьте согласие на обработку данных.', 'error');
       return;
     }
 
-    const botToken = form.dataset.telegramBot || '';
-    const chatId = form.dataset.telegramChatId || '';
-    const cloudSheetUrl = form.dataset.googleSheetUrl || '';
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-    const text = [
-      'Новая заявка с сайта',
-      `Имя: ${payload.name || '-'}`,
-      `Телефон: ${payload.phone || '-'}`,
-      `Email: ${payload.email || '-'}`,
-      `Тип обращения: ${payload.request_type || '-'}`,
-      `Организация: ${payload.organization || '-'}`,
-      `Количество участников: ${payload.participants || '-'}`,
-      `Желаемая дата: ${payload.date || '-'}`,
-      `Комментарий: ${payload.comment || '-'}`,
-    ].join('\n');
+    const payload = Object.fromEntries(new FormData(form).entries());
+    saveLocally(payload);
 
-    try {
-      if (botToken && chatId) {
-        const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text,
-            disable_web_page_preview: true,
-          }),
-        });
-
-        if (!telegramResponse.ok) {
-          throw new Error('Telegram request failed');
-        }
-      }
-
-      if (cloudSheetUrl) {
-        try {
-          await fetch(cloudSheetUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              timestamp: new Date().toISOString(),
-              ...payload,
-            }),
-          });
-        } catch (sheetError) {
-          console.warn('Cloud sheet integration not available yet, saving locally instead.', sheetError);
-        }
-      }
-
-      const stored = JSON.parse(localStorage.getItem('aliya-form-submissions') || '[]');
-      stored.push({
-        timestamp: new Date().toISOString(),
-        ...payload,
-      });
-      localStorage.setItem('aliya-form-submissions', JSON.stringify(stored));
-
-      showStatus('Заявка отправлена. В ближайшее время с вами свяжутся.', 'success');
-      form.reset();
-    } catch (error) {
-      console.error(error);
-      try {
-        const stored = JSON.parse(localStorage.getItem('aliya-form-submissions') || '[]');
-        stored.push({
-          timestamp: new Date().toISOString(),
-          ...payload,
-        });
-        localStorage.setItem('aliya-form-submissions', JSON.stringify(stored));
-      } catch (storageError) {
-        console.error(storageError);
-      }
-      showStatus('Форма принята. Пока Telegram и облачная таблица не подключены, данные сохраняются локально до настройки интеграции.', 'error');
-      form.reset();
-    }
+    showStatus('Заявка принята. Я свяжусь с вами в ближайшее время — при необходимости напишите в WhatsApp.', 'success');
+    form.reset();
   });
-}
+})();

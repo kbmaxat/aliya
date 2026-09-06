@@ -1,4 +1,4 @@
-// Алия Жакупова — интерактив лендинга
+// Алия Серикбаевна — интерактив лендинга
 
 (() => {
   'use strict';
@@ -82,7 +82,14 @@
   const yearNode = document.querySelector('[data-year]');
   if (yearNode) yearNode.textContent = String(new Date().getFullYear());
 
-  /* ---------- Форма заявки ---------- */
+  /* ---------- Форма заявки ----------
+     Готового бэкенда у статического сайта нет, поэтому заявка:
+     1) резервно сохраняется в localStorage браузера посетителя;
+     2) открывает WhatsApp (+7 776 155 03 28) с уже собранным текстом —
+        так сообщение реально доходит до Алии.
+     Для сбора заявок в почту / Google-таблицу / Telegram нужен
+     небольшой сервис (Formspree, Google Apps Script и т.п.). */
+  const WHATSAPP_NUMBER = '87761550328';
   const form = document.querySelector('#contact-form');
   if (!form) return;
 
@@ -103,6 +110,21 @@
       console.warn('Не удалось сохранить заявку локально:', error);
     }
   };
+
+  const buildMessage = (p) =>
+    [
+      'Заявка с сайта',
+      p.name && `Имя: ${p.name}`,
+      p.phone && `Телефон: ${p.phone}`,
+      p.email && `Email: ${p.email}`,
+      p.request_type && `Тип обращения: ${p.request_type}`,
+      p.organization && `Организация: ${p.organization}`,
+      p.participants && `Количество участников: ${p.participants}`,
+      p.date && `Желаемая дата: ${p.date}`,
+      p.comment && `Комментарий: ${p.comment}`,
+    ]
+      .filter(Boolean)
+      .join('\n');
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -126,7 +148,15 @@
     const payload = Object.fromEntries(new FormData(form).entries());
     saveLocally(payload);
 
-    showStatus('Заявка принята. Я свяжусь с вами в ближайшее время — при необходимости напишите в WhatsApp.', 'success');
+    const waUrl =
+      `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(buildMessage(payload));
+    const win = window.open(waUrl, '_blank', 'noopener');
+
+    if (win) {
+      showStatus('Открываем WhatsApp с вашей заявкой — отправьте сообщение, чтобы завершить.', 'success');
+    } else {
+      showStatus('Не удалось открыть WhatsApp. Напишите напрямую: 8 (776) 155-03-28.', 'error');
+    }
     form.reset();
   });
 })();

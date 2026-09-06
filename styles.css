@@ -1,5 +1,5 @@
 /* ============================================================
-   Алия Жакупова — психолог и арт-терапевт
+   Алия Серикбаевна — психолог и арт-терапевт
    Дизайн-система: тёплый бумажный фон, глубокий зелёный,
    мягкая шалфейная зелень и терракотовый акцент.
    ============================================================ */
@@ -309,15 +309,18 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   flex: none;
   border-radius: 14px;
-  background: var(--forest);
+  background: linear-gradient(145deg, #3a7a5e 0%, var(--forest-900) 100%);
+  box-shadow: inset 0 0 0 1px rgba(247, 245, 239, 0.18),
+    0 6px 16px rgba(26, 40, 32, 0.18);
   color: var(--paper-2);
   font-family: "Fraunces", serif;
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: 0.04em;
 }
 
 .brand-text strong {
@@ -450,7 +453,7 @@ p {
 
 .hero-figure {
   position: relative;
-  aspect-ratio: 1 / 1.08;
+  aspect-ratio: 1 / 1.04;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -458,21 +461,20 @@ p {
 
 .hero-shape {
   position: absolute;
-  border-radius: 46% 54% 44% 56% / 54% 46% 54% 46%;
+  border-radius: 50%;
 }
 
 .hero-shape--main {
-  inset: 6% 4% 0 4%;
-  background: linear-gradient(160deg, var(--forest) 0%, var(--forest-900) 100%);
+  inset: -6% -6% -4% -2%;
+  background: linear-gradient(155deg, #3f8163 0%, var(--forest) 45%, var(--forest-900) 100%);
 }
 
 .hero-shape--accent {
-  width: 42%;
-  height: 42%;
-  right: -4%;
-  top: 2%;
-  border-radius: 42% 58% 46% 54% / 52% 44% 56% 48%;
-  background: var(--sage-2);
+  width: 46%;
+  height: 46%;
+  right: -9%;
+  top: -7%;
+  background: #63a486;
 }
 
 .hero-portrait {
@@ -571,6 +573,15 @@ p {
 }
 
 /* ---------- Documents ---------- */
+.doc-group-title {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  margin: 8px 0 18px;
+}
+
+.doc-grid + .doc-group-title {
+  margin-top: 36px;
+}
+
 .doc-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -626,6 +637,23 @@ p {
 
 .timeline-item h3 {
   margin-bottom: 6px;
+}
+
+.timeline-docs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 12px;
+}
+
+.timeline-docs a {
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--clay);
+}
+
+.timeline-docs a:hover {
+  text-decoration: underline;
 }
 
 .timeline-year {
@@ -1007,6 +1035,12 @@ p {
   color: #a53a2a;
 }
 
+.form-hint {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--forest-900);
@@ -1046,6 +1080,7 @@ p {
 
 .brand-mark--footer {
   background: rgba(247, 245, 239, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(247, 245, 239, 0.2);
   color: var(--paper-2);
 }
 
@@ -1053,6 +1088,24 @@ p {
   margin-top: 16px;
   font-size: 0.85rem;
   color: rgba(247, 245, 239, 0.5);
+}
+
+.footer-made {
+  margin-top: 40px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(247, 245, 239, 0.12);
+  font-size: 0.82rem;
+  color: rgba(247, 245, 239, 0.45);
+}
+
+.footer-made a {
+  color: rgba(247, 245, 239, 0.82);
+  font-weight: 700;
+  transition: color 0.15s ease;
+}
+
+.footer-made a:hover {
+  color: var(--paper-2);
 }
 
 /* ---------- Reveal on scroll ---------- */

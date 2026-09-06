@@ -1164,56 +1164,33 @@ p {
   color: var(--paper-2);
 }
 
-/* ---------- Reveal on scroll ---------- */
+/* ============================================================
+   Движение и интерактив — единый набор для всех блоков
+   ============================================================ */
 :root {
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* --- Появление блока при прокрутке (одинаково везде) --- */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out),
-    filter 0.8s var(--ease-out);
+  transform: translateY(40px) scale(0.985);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
-}
-
-.reveal--left {
-  transform: translateX(-44px);
-}
-
-.reveal--right {
-  transform: translateX(44px);
-}
-
-.reveal--scale {
-  transform: translateY(28px) scale(0.94);
-}
-
-.reveal--blur {
-  filter: blur(6px);
-}
-
-/* карточки в сетках появляются с лёгким масштабом */
-.service-card.reveal,
-.doc-card.reveal,
-.focus-item.reveal,
-.process-step.reveal {
-  transform: translateY(30px) scale(0.96);
 }
 
 .reveal.in {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
-/* заголовки секций «проявляются» маской снизу вверх */
+/* --- Заголовок секции: маска снизу вверх (одинаково везде) --- */
 .section-heading.reveal h2 {
   clip-path: inset(0 0 110% 0);
   transform: translateY(14px);
   transition: clip-path 0.9s var(--ease-out), transform 0.9s var(--ease-out);
-  transition-delay: 90ms;
+  transition-delay: 110ms;
 }
 
 .section-heading.reveal.in h2 {
@@ -1221,10 +1198,120 @@ p {
   transform: none;
 }
 
-/* мягкий параллакс фоновых фигур в hero */
+/* --- Мягкий параллакс фоновых фигур в hero --- */
 .hero-shape {
   will-change: transform;
   transition: transform 0.1s linear;
+}
+
+/* --- Ховер карточек: одинаковый подъём во всех блоках --- */
+.doc-card,
+.service-card,
+.focus-item,
+.process-step,
+.timeline-item,
+.video-item,
+.pricing-card {
+  transition: transform 0.32s var(--ease-out), box-shadow 0.32s var(--ease-out),
+    border-color 0.32s ease, background-color 0.32s ease;
+}
+
+.doc-card:hover,
+.service-card:hover,
+.process-step:hover,
+.timeline-item:hover,
+.video-item:hover,
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(192, 107, 69, 0.4);
+}
+
+.focus-item:hover {
+  transform: translateY(-6px);
+  background: rgba(247, 245, 239, 0.13);
+  border-color: rgba(247, 245, 239, 0.32);
+}
+
+/* значок-стрелка реагирует на ховер карточки */
+.doc-card .badge,
+.service-card .badge,
+.focus-item .badge {
+  transition: transform 0.32s var(--ease-out), background-color 0.32s ease,
+    color 0.32s ease;
+}
+
+.doc-card:hover .badge,
+.service-card:hover .badge {
+  transform: translate(2px, -2px) rotate(10deg);
+  background: var(--clay);
+  color: #fff;
+}
+
+.focus-item:hover .badge {
+  transform: translate(2px, -2px) rotate(10deg);
+  background: var(--paper-2);
+  color: var(--forest-900);
+}
+
+/* --- Ховер картинок: одинаковый зум во всех блоках --- */
+.media-frame img,
+.about-photo img,
+.gallery-grid img {
+  transition: transform 0.6s var(--ease-out);
+}
+
+.media-frame:hover img,
+.about-photo:hover img,
+.gallery-grid img:hover {
+  transform: scale(1.045);
+}
+
+/* --- Ховер текстовых ссылок: подчёркивание «рисуется» --- */
+.contact-list a,
+.footer-grid a,
+.timeline-docs a,
+.footer-made a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-out), color 0.2s ease;
+}
+
+.contact-list a:hover,
+.footer-grid a:hover,
+.timeline-docs a:hover,
+.footer-made a:hover {
+  background-size: 100% 1.5px;
+}
+
+/* --- Ховер чипов в hero: заливка --- */
+.hero-chips li {
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, transform 0.25s var(--ease-out);
+}
+
+.hero-chips li:hover {
+  background: var(--forest);
+  color: var(--paper-2);
+  border-color: var(--forest);
+  transform: translateY(-2px);
+}
+
+/* --- Кнопки: лёгкое нажатие --- */
+.button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* --- Карточка КП на тёмном фоне --- */
+.offer-card {
+  transition: transform 0.32s var(--ease-out), box-shadow 0.32s var(--ease-out);
+}
+
+.offer-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.28);
 }
 
 /* ---------- Focus visibility ---------- */
@@ -1388,18 +1475,9 @@ p {
     scroll-behavior: auto;
   }
 
-  .reveal,
-  .reveal--left,
-  .reveal--right,
-  .reveal--scale,
-  .reveal--blur,
-  .service-card.reveal,
-  .doc-card.reveal,
-  .focus-item.reveal,
-  .process-step.reveal {
+  .reveal {
     opacity: 1;
     transform: none;
-    filter: none;
     transition: none;
   }
 
@@ -1410,13 +1488,26 @@ p {
     transition: none;
   }
 
-  .hero-shape {
+  .hero-shape,
+  [data-parallax] {
     transition: none;
+    transform: none !important;
   }
 
   .button:hover,
+  .button:active,
   .doc-card:hover,
   .service-card:hover,
+  .focus-item:hover,
+  .process-step:hover,
+  .timeline-item:hover,
+  .video-item:hover,
+  .pricing-card:hover,
+  .offer-card:hover,
+  .hero-chips li:hover,
+  .doc-card:hover .badge,
+  .service-card:hover .badge,
+  .focus-item:hover .badge,
   .gallery-grid img:hover,
   .media-frame:hover img,
   .about-photo:hover img {

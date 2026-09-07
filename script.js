@@ -137,7 +137,7 @@
   const showStatus = (message, type) => {
     if (!statusNode) return;
     statusNode.textContent = message;
-    statusNode.className = 'form-status';
+    statusNode.className = 'form-status field--full';
     if (type) statusNode.classList.add(type);
   };
 
@@ -186,7 +186,9 @@
       body: JSON.stringify({ ...payload, text: buildMessage(payload), page: location.href }),
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    return res;
+    const result = await res.json();
+    if (result.ok !== true) throw new Error('Delivery was not confirmed');
+    return result;
   };
 
   form.addEventListener('submit', async (event) => {

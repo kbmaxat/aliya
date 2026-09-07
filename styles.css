@@ -1514,3 +1514,29 @@ p {
     transform: none;
   }
 }
+
+/* Shared clipping boundary keeps the cutout inside its green background. */
+.hero-portrait-frame {
+  position: absolute;
+  inset: -6% -6% -4% -2%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(155deg, #3f8163 0%, var(--forest) 45%, var(--forest-900) 100%);
+  z-index: 1;
+}
+.hero-portrait-frame .hero-portrait {
+  position: absolute;
+  inset: 6% 3% 0;
+  width: 94%;
+  height: 94%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+.hero-shape--accent {
+  width: 52%;
+  height: 39%;
+  border-radius: 64% 36% 58% 42% / 43% 61% 39% 57%;
+  right: -10%;
+  top: -9%;
+  z-index: 0;
+}

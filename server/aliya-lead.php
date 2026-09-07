@@ -36,6 +36,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit;
 }
+
+/* Диагностика: GET ...?diag=1 — показывает состояние настройки без секретов. */
+if (isset($_GET['diag'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    $tokenOk = $BOT_TOKEN && $BOT_TOKEN !== '00000000:PASTE_YOUR_BOT_TOKEN';
+    $chatOk  = $CHAT_ID && $CHAT_ID !== '000000000';
+    $getMe = null;
+    if ($tokenOk && function_exists('curl_init')) {
+        $ch = curl_init('https://api.telegram.org/bot' . $BOT_TOKEN . '/getMe');
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8]);
+        $r = curl_exec($ch);
+        $getMe = ['http' => curl_getinfo($ch, CURLINFO_HTTP_CODE), 'body' => json_decode((string)$r, true)];
+        curl_close($ch);
+    }
+    echo json_encode([
+        'ok' => true,
+        'config_local_php' => is_file(__DIR__ . '/config.local.php'),
+        'token_set' => (bool)$tokenOk,
+        'token_len' => strlen((string)$BOT_TOKEN),
+        'token_tail' => substr((string)$BOT_TOKEN, -6),
+        'chat_id_set' => (bool)$chatOk,
+        'chat_id_tail' => substr((string)$CHAT_ID, -4),
+        'php_curl' => function_exists('curl_init'),
+        'allow_url_fopen' => (bool)ini_get('allow_url_fopen'),
+        'telegram_getMe' => $getMe,
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    exit;
+}
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     header('Content-Type: application/json; charset=utf-8');

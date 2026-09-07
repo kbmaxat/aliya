@@ -113,27 +113,29 @@ foreach ($fields as $label => $value) {
 }
 $text = implode("\n", $lines);
 
-/* Отправка в Telegram. */
-$url  = 'https://api.telegram.org/bot' . $BOT_TOKEN . '/sendMessage';
-$post = http_build_query([
-    'chat_id'                  => $CHAT_ID,
-    'text'                     => $text,
-    'disable_web_page_preview' => 'true',
-]);
+/* Отправка в Telegram. TG_CHAT_ID может содержать несколько получателей
+   через запятую — например личка + группа: "5974988518,-1001234567890". */
+$url = 'https://api.telegram.org/bot' . $BOT_TOKEN . '/sendMessage';
 
-$ok = false;
-if (function_exists('curl_init')) {
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => $post,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 10,
+$sendOne = function ($chatId) use ($url, $text) {
+    $post = http_build_query([
+        'chat_id'                  => $chatId,
+        'text'                     => $text,
+        'disable_web_page_preview' => 'true',
     ]);
-    $resp = curl_exec($ch);
-    $ok   = $resp !== false && curl_getinfo($ch, CURLINFO_HTTP_CODE) === 200;
-    curl_close($ch);
-} else {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $post,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 10,
+        ]);
+        $resp = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return $resp !== false && $code === 200;
+    }
     $ctx  = stream_context_create(['http' => [
         'method'        => 'POST',
         'header'        => 'Content-Type: application/x-www-form-urlencoded',
@@ -142,12 +144,20 @@ if (function_exists('curl_init')) {
         'ignore_errors' => true,
     ]]);
     $resp = @file_get_contents($url, false, $ctx);
-    $ok   = $resp !== false && strpos((string)$resp, '"ok":true') !== false;
+    return $resp !== false && strpos((string)$resp, '"ok":true') !== false;
+};
+
+$recipients = array_filter(array_map('trim', explode(',', (string)$CHAT_ID)), 'strlen');
+$sent = 0;
+foreach ($recipients as $chatId) {
+    if ($sendOne($chatId)) {
+        $sent++;
+    }
 }
 
 header('Content-Type: application/json; charset=utf-8');
-if ($ok) {
-    echo json_encode(['ok' => true]);
+if ($sent > 0) {
+    echo json_encode(['ok' => true, 'delivered' => $sent]);
 } else {
     http_response_code(502);
     echo json_encode(['ok' => false, 'error' => 'telegram_failed']);
